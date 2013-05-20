@@ -4,5 +4,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
     <string name="title_activity_main">MainActivity</string>
+    <string name="prendrephoto">Prendre une photo</string>
+    <string name="nom">nom</string>
+    <string name="prenom">prenom</string>
+    <string name="hint_vide"></string>
+    <string name="groupe">groupe</string>
+    <string name="rechercher">rechercher</string>
+    <string name="avecphoto">possèdant photo</string>
+    <string name="ajouterprofil">Ajouter</string>
+    <string name="ajouter">Ajouter</string>
 
 </resources>
