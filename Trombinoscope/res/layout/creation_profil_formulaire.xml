@@ -74,7 +74,7 @@
         android:text="@string/groupe"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:textSize="30dp" />
-
+
     <EditText
         android:id="@+id/editText3"
         android:layout_width="wrap_content"
@@ -82,7 +82,8 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/textView3"
-        android:ems="10" />
+        android:ems="10"
+        android:textSize="30dp" />
 
     <Button
         android:id="@+id/button2"

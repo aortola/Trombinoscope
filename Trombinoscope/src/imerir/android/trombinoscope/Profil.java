@@ -10,6 +10,9 @@ public class Profil {
 	private String groupe;
 	private Bitmap img;
 	
+	public Profil(){
+	}
+	
 	public Profil(int id, String nom, String prenom, String groupe,Bitmap img){
 		this.id=id;
 		this.nom=nom;
