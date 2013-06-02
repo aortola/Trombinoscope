@@ -1,9 +1,15 @@
 package imerir.android.trombinoscope;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -58,7 +64,32 @@ public class AjoutProfil extends Activity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
     	Bitmap bit= (Bitmap) data.getExtras().get("data");
-    	img.setImageBitmap(bit); 
-    	p.setImg(bit);
+    	Uri uri=(Uri) data.getData();
+    //  La rotation foire encore...	
+    //	Matrix mtx = new Matrix();
+    //	mtx.postRotate(90);
+    	bit = BitmapFactory.decodeFile(getRealPathFromURI(uri));
+    //  bit = Bitmap.createBitmap(bit, 0, 0, bit.getWidth(), bit.getHeight(), mtx, true);
+    	img.setImageBitmap(bit);
+    	p.setImg(getRealPathFromURI(uri));
     }
+    
+	private void showTestDialog(String s){
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setTitle("Test");
+		alertDialogBuilder.setMessage(s);
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
+	
+	public String getRealPathFromURI(Uri contentUri) {
+        String[] proj = { MediaStore.Images.Media.DATA };
+        //A remplacer, mais par quoi ????
+        Cursor cursor = managedQuery(contentUri, proj, null, null, null);
+        int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+        cursor.moveToFirst();
+        return cursor.getString(column_index);
+    }
+
+
 }

@@ -4,9 +4,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
- 
+
     <ListView
-        android:id="@+id/listeprofils"
+        android:id="@+id/liste_profils"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
       />

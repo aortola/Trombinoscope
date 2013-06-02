@@ -5,17 +5,32 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.GridView;
 
 public class MainActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.rechercher_profil_formulaire);
-    	Intent intent=new Intent(this,AjoutProfil.class);
-        startActivity(intent);
+        setContentView(R.layout.activity_main);
+        GridView gridView = (GridView) findViewById(R.id.grid_view);
+        gridView.setAdapter(new ImageAdapter(this));
+        gridView.setOnItemClickListener(new OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+                Intent i = null;
+                if(position==0){
+                    i= new Intent(getApplicationContext(),AjoutProfil.class);
+                }else if(position==1){
+                    i= new Intent(getApplicationContext(),ListerProfils.class);
+                }else if(position==2){
+                	i= new Intent(getApplicationContext(),Rechercher.class);
+                }
+                startActivity(i);
+            }
+        });
     }
 
     @Override
