@@ -10,7 +10,7 @@ import android.database.sqlite.SQLiteDatabase;
 public abstract class DAOBase {
 
 	  //Version courante de la base
-	  protected final static int VERSION = 1;
+	  protected final static int VERSION = 3;
 	  //Nom de la base
 	  protected final static String NOM = "databaseProfil.db";
 	     

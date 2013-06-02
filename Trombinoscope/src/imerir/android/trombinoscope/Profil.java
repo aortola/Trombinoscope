@@ -1,19 +1,17 @@
 package imerir.android.trombinoscope;
 
-import android.graphics.Bitmap;
-
 public class Profil {
 	
 	private int id;
 	private String nom;
 	private String prenom;
 	private String groupe;
-	private Bitmap img;
+	private String img;
 	
 	public Profil(){
 	}
 	
-	public Profil(int id, String nom, String prenom, String groupe,Bitmap img){
+	public Profil(int id, String nom, String prenom, String groupe,String img){
 		this.id=id;
 		this.nom=nom;
 		this.prenom=prenom;
@@ -45,11 +43,11 @@ public class Profil {
 		return prenom;
 	}
 
-	public void setImg(Bitmap img) {
+	public void setImg(String img) {
 		this.img = img;
 	}
 
-	public Bitmap getImg() {
+	public String getImg() {
 		return img;
 	}
 

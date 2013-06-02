@@ -1,12 +1,8 @@
 package imerir.android.trombinoscope;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 
 public class ProfilDAO extends DAOBase{
 
@@ -28,7 +24,7 @@ public class ProfilDAO extends DAOBase{
 			PROFIL_NOM + " TEXT," +
 			PROFIL_PRENOM + " TEXT, " +
 			PROFIL_GROUPE + " TEXT, " +
-			PROFIL_IMG + " BLOB" +
+			PROFIL_IMG + " TEXT" +
 			");";
 
 	public static final String PROFIL_TABLE_DROP="DROP TABLE IF EXISTS "+PROFIL_TABLE_NAME+";";
@@ -38,9 +34,7 @@ public class ProfilDAO extends DAOBase{
 		cv.put(PROFIL_NOM, p.getNom());
 		cv.put(PROFIL_PRENOM, p.getPrenom());
 		cv.put(PROFIL_GROUPE, p.getGroupe());
-		ByteArrayOutputStream baops = new ByteArrayOutputStream() ;
-		p.getImg().compress(Bitmap.CompressFormat.JPEG, 100, baops);
-		cv.put(PROFIL_IMG,baops.toByteArray());
+		cv.put(PROFIL_IMG, p.getImg());
 		pDb.insert(ProfilDAO.PROFIL_TABLE_NAME, null, cv);
 	}
 	
@@ -48,24 +42,30 @@ public class ProfilDAO extends DAOBase{
 		pDb.delete(PROFIL_TABLE_NAME, PROFIL_CLE + " = ?", new String[] {String.valueOf(p.getId())});	
 	}
 	
+	public void supprimerAll(){
+		Cursor c = selectionnerTousLesProfils();
+		c.moveToFirst();
+		Profil p;
+		do{
+			p= new Profil();
+			p.setId(c.getInt(0));
+			pDb.delete(PROFIL_TABLE_NAME, PROFIL_CLE + " = ?", new String[] {String.valueOf(p.getId())});	
+		}while(c.moveToNext());
+	}
+	
 	public void modifier(Profil p){
 		ContentValues cv = new ContentValues();
 		cv.put(PROFIL_NOM, p.getNom());
 		cv.put(PROFIL_PRENOM, p.getPrenom());
 		cv.put(PROFIL_GROUPE, p.getGroupe());
-		ByteArrayOutputStream baops = new ByteArrayOutputStream() ;
-		p.getImg().compress(Bitmap.CompressFormat.JPEG, 100, baops);
-		cv.put(PROFIL_IMG,baops.toByteArray());
+		cv.put(PROFIL_IMG,p.getImg());
 		pDb.update(PROFIL_TABLE_NAME, cv,PROFIL_CLE + " = ?", new String[] {String.valueOf(p.getId())});	
 	}
 	
 	public Profil selectionnerUnProfil(int id){
 		 Cursor c = pDb.rawQuery("SELECT "+PROFIL_CLE+", "+PROFIL_NOM+", "+PROFIL_PRENOM+", "+PROFIL_GROUPE+", "+PROFIL_IMG+" FROM "+PROFIL_TABLE_NAME+" WHERE "+PROFIL_CLE+"=?;", new String[] {String.valueOf(id)});
 		  c.moveToFirst();
-		  byte[] photo=c.getBlob(4);
-		  ByteArrayInputStream imageStream = new ByteArrayInputStream(photo);
-		  Bitmap img= BitmapFactory.decodeStream(imageStream);
-		return new Profil(c.getInt(0),c.getString(1),c.getString(2), c.getString(3),img);
+		return new Profil(c.getInt(0),c.getString(1),c.getString(2), c.getString(3),c.getString(4));
 	}
 	
 	public Cursor selectionnerTousLesProfils(){

@@ -21,11 +21,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 			PROFIL_NOM + " TEXT," +
 			PROFIL_PRENOM + " TEXT, " +
 			PROFIL_GROUPE + " TEXT, " +
-			PROFIL_IMG + " BLOB" +
+			PROFIL_IMG + " TEXT" +
 			");";
 
 	public static final String PROFIL_TABLE_DROP="DROP TABLE IF EXISTS "+PROFIL_TABLE_NAME+";";
-
 	
 	
     public DatabaseHandler(Context context, String name, CursorFactory factory,int version) {
