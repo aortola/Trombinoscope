@@ -1,5 +1,7 @@
 package imerir.android.trombinoscope;
 
+import java.util.ArrayList;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -85,6 +87,68 @@ public class ProfilDAO extends DAOBase{
 	
 	public Cursor selectionnerLesProfilsParPrenom(String prenom){
 		 Cursor c = pDb.rawQuery("SELECT "+PROFIL_CLE+", "+PROFIL_NOM+", "+PROFIL_PRENOM+", "+PROFIL_GROUPE+", "+PROFIL_IMG+" FROM "+PROFIL_TABLE_NAME+" WHERE "+PROFIL_PRENOM+"=?;", new String[] {prenom});
+		return c;
+	}
+	
+	public Cursor selectionnerProfilsCorrespondant(String nom, String prenom, String groupe, String photo){
+		
+		String where = "WHERE ";
+		String var = "=?";
+		String and = " AND ";
+		String query ="";
+		int i=0;
+		Cursor c;
+		ArrayList<String> params = new ArrayList<String>();
+		
+		if(nom!=null && nom!=""){
+			query+=where+PROFIL_NOM+var;
+			params.add(nom);
+			i++;
+		}
+		
+		
+		if(prenom!=null && prenom!=""){
+	        if(i>0){
+	        	i--;
+	        	query+=and;
+	        }
+			query=where+PROFIL_PRENOM+var;
+			params.add(prenom);
+			i++;
+		}
+		
+		if(groupe!=null && groupe!=""){
+	        if(i>0){
+	        	i--;
+	        	query+=and;
+	        }
+			query=where+PROFIL_GROUPE+var;
+			params.add(groupe);
+			i++;
+		}
+		
+		if(photo!=null && photo!="no"){
+	        if(i>0){
+	        	i--;
+	        	query+=and;
+	        }
+			query=where+PROFIL_IMG+"!=NULL";
+			i++;
+		}else if(photo!=null && photo!="yes" ){
+	        if(i>0){
+	        	i--;
+	        	query+=and;
+	        }
+			query=where+PROFIL_IMG+"=NULL";
+			i++;
+		}
+		
+		if(i==0){
+			c=selectionnerTousLesProfils();
+		}else{
+			c=pDb.rawQuery(query+";", (String[]) params.toArray());
+		}
+		
 		return c;
 	}
 }
