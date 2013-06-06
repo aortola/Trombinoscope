@@ -63,13 +63,14 @@ public class AjoutProfil extends Activity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     	super.onActivityResult(requestCode, resultCode, data);
-    	Bitmap bit= (Bitmap) data.getExtras().get("data");
+    	Bitmap bit;
     	Uri uri=(Uri) data.getData();
-    //  La rotation foire encore...	
-    //	Matrix mtx = new Matrix();
-    //	mtx.postRotate(90);
-    	bit = BitmapFactory.decodeFile(getRealPathFromURI(uri));
-    //  bit = Bitmap.createBitmap(bit, 0, 0, bit.getWidth(), bit.getHeight(), mtx, true);
+        BitmapFactory.Options options = new BitmapFactory.Options();
+		options.inSampleSize = 8;
+    	bit = BitmapFactory.decodeFile(getRealPathFromURI(uri),options);
+    	Matrix mtx = new Matrix();
+    	mtx.postRotate(90);
+    	bit = Bitmap.createBitmap(bit, 0, 0, bit.getWidth(), bit.getHeight(), mtx, true);
     	img.setImageBitmap(bit);
     	p.setImg(getRealPathFromURI(uri));
     }

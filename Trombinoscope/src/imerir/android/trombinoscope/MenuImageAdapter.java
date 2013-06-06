@@ -6,15 +6,15 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
  
-public class ImageAdapter extends BaseAdapter {
+public class MenuImageAdapter extends BaseAdapter {
     private Context mContext;
  
     public Integer[] mThumbIds = {
     		R.drawable.ajout_bleu,R.drawable.liste_vert,
-    		R.drawable.recherche_rouge
+    		R.drawable.recherche_rouge, R.drawable.groupes_carre_bleu
     };
  
-    public ImageAdapter(Context c){
+    public MenuImageAdapter(Context c){
         mContext = c;
     }
  
@@ -37,7 +37,7 @@ public class ImageAdapter extends BaseAdapter {
         ImageView imageView = new ImageView(mContext);
         imageView.setImageResource(mThumbIds[position]);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setLayoutParams(new GridView.LayoutParams(135, 135));
+        imageView.setLayoutParams(new GridView.LayoutParams(200, 200));
         return imageView;
     }
  

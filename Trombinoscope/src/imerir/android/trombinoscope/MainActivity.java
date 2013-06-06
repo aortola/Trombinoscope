@@ -2,6 +2,7 @@ package imerir.android.trombinoscope;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.View;
@@ -16,7 +17,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         GridView gridView = (GridView) findViewById(R.id.grid_view);
-        gridView.setAdapter(new ImageAdapter(this));
+        gridView.setAdapter(new MenuImageAdapter(this));
         gridView.setOnItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
@@ -27,6 +28,8 @@ public class MainActivity extends Activity {
                     i= new Intent(getApplicationContext(),ListerProfils.class);
                 }else if(position==2){
                 	i= new Intent(getApplicationContext(),Rechercher.class);
+                }else if(position==3){
+                	i= new Intent(getApplicationContext(),GridListerProfils.class);
                 }
                 startActivity(i);
             }
@@ -38,4 +41,12 @@ public class MainActivity extends Activity {
         getMenuInflater().inflate(R.menu.activity_main, menu);
         return true;
     }
+    
+	private void showTestDialog(String s) {
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setTitle("Test");
+		alertDialogBuilder.setMessage(s);
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.show();
+	}
 }
