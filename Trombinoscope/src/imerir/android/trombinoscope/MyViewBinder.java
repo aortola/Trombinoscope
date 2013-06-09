@@ -1,9 +1,12 @@
 package imerir.android.trombinoscope;
 
+import android.app.AlertDialog;
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter.ViewBinder;
 
@@ -21,6 +24,7 @@ public class MyViewBinder implements ViewBinder {
 		    	mtx.postRotate(90);
 		    	bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), mtx, true);
 				iv.setImageBitmap(bm);
+				iv.setTag(data);
 			} catch (OutOfMemoryError oom) {
 				throw oom;
 			}
@@ -28,4 +32,5 @@ public class MyViewBinder implements ViewBinder {
 		}
 		return false;
 	}
+	
 }

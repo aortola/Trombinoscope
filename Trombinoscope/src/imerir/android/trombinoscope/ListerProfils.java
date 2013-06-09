@@ -4,8 +4,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -54,19 +60,19 @@ public class ListerProfils extends Activity {
 			if (booleanParams.size() > 0 && booleanParams.get("photo")) {
 				photo = "yes";
 			}
-//			showTestDialog(stringParams.get("nom"));
-//			showTestDialog(stringParams.get("prenom"));
-//			showTestDialog(stringParams.get("groupe"));
-//			showTestDialog(stringParams.get("photo"));
-//			
+			// showTestDialog(stringParams.get("nom"));
+			// showTestDialog(stringParams.get("prenom"));
+			// showTestDialog(stringParams.get("groupe"));
+			// showTestDialog(stringParams.get("photo"));
+			//
 			c = pDao.selectionnerProfilsCorrespondant(stringParams.get("nom"),
 					stringParams.get("prenom"), stringParams.get("groupe"),
 					photo);
-//			showTestDialog(pDao.selectionnerProfilsCorrespondant(stringParams.get("nom"),
-//					stringParams.get("prenom"), stringParams.get("groupe"),
-//					photo));
-			
-	//		c = pDao.selectionnerTousLesProfils();
+			// showTestDialog(pDao.selectionnerProfilsCorrespondant(stringParams.get("nom"),
+			// stringParams.get("prenom"), stringParams.get("groupe"),
+			// photo));
+
+			// c = pDao.selectionnerTousLesProfils();
 		} else {
 			c = pDao.selectionnerTousLesProfils();
 		}
@@ -75,10 +81,11 @@ public class ListerProfils extends Activity {
 		if (!c.isAfterLast()) {
 			do {
 				map = new HashMap<String, Object>();
+				map.put("Id", c.getString(0));
 				map.put("Nom", c.getString(1));
 				map.put("Prenom", c.getString(2));
 				map.put("Photo", c.getString(4));
-			//	showTestDialog(c.getString(1));
+				// showTestDialog(c.getString(1));
 				listeElemProfils.add(map);
 			} while (c.moveToNext());
 			c.close();
@@ -91,6 +98,24 @@ public class ListerProfils extends Activity {
 		listeProfilVersViewAdapteur.setViewBinder(new MyViewBinder());
 		try {
 			listeProfils.setAdapter(listeProfilVersViewAdapteur);
+			
+			
+			class OnItemEditSupprListener implements OnItemClickListener{
+
+				private ArrayList<HashMap<String, Object>> listeElemProfils ;
+				
+				public OnItemEditSupprListener(ArrayList<HashMap<String, Object>> listeElemProfils ){
+					super();
+					this.listeElemProfils=listeElemProfils;
+				}
+				
+				@Override
+				public void onItemClick(AdapterView<?> parent, View v, int pos,
+						long id) {
+					showChoixDialog((String) this.listeElemProfils.get(pos).get("Id"), v.getContext());
+				}
+			}
+			listeProfils.setOnItemClickListener(new OnItemEditSupprListener(listeElemProfils));
 		} catch (OutOfMemoryError oom) {
 			showTestDialog(oom.getMessage());
 		}
@@ -103,4 +128,27 @@ public class ListerProfils extends Activity {
 		AlertDialog alertDialog = alertDialogBuilder.create();
 		alertDialog.show();
 	}
+	
+	@SuppressWarnings("deprecation")
+	private void showChoixDialog(final String id, final Context c) {
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+		alertDialogBuilder.setTitle("Que voulez-vous faire?");		
+		AlertDialog alertDialog = alertDialogBuilder.create();
+		alertDialog.setButton("Editer", new DialogInterface.OnClickListener() {
+		  public void onClick(DialogInterface dialog, int which) {
+			  Intent i = new Intent(c,EditerProfil.class);
+			  i.putExtra("Id", id);
+			  startActivity(i);
+		    } }); 
+		alertDialog.setButton2("Supprimer", new DialogInterface.OnClickListener() {
+			  public void onClick(DialogInterface dialog, int which) {
+				  
+			    } }); 
+		alertDialog.setButton3("Annuler", new DialogInterface.OnClickListener() {
+			  public void onClick(DialogInterface dialog, int which) {
+				  
+			    } }); 
+		alertDialog.show();
+	}
+	
 }
