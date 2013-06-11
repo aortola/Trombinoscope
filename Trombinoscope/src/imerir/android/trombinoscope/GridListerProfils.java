@@ -31,11 +31,13 @@ public class GridListerProfils extends Activity {
 		c.moveToFirst();
 		if (!c.isAfterLast()) {
 			do {
-				map = new HashMap<String, Object>();
-				map.put("Nom", c.getString(1));
-				map.put("Prenom", c.getString(2));
-				map.put("Photo", c.getString(4));
-				listeElemProfils.add(map);
+				if(!c.getString(4).equals("null")){
+					map = new HashMap<String, Object>();
+					map.put("Nom", c.getString(1));
+					map.put("Prenom", c.getString(2));
+					map.put("Photo", c.getString(4));
+					listeElemProfils.add(map);
+				}
 			} while (c.moveToNext());
 			c.close();
 		}

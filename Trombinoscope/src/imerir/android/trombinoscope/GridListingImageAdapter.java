@@ -45,7 +45,7 @@ public class GridListingImageAdapter extends BaseAdapter {
     	bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), mtx, true);
 		imageView.setImageBitmap(bm);
         imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
-        imageView.setLayoutParams(new GridView.LayoutParams(90, 90));
+        imageView.setLayoutParams(new GridView.LayoutParams(100, 90));
         return imageView;
     }
  

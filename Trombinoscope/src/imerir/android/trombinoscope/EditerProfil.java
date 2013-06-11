@@ -30,23 +30,23 @@ public class EditerProfil extends Activity {
         pDao = new ProfilDAO(this);
         pDao.open();
         p = pDao.selectionnerUnProfil(Integer.parseInt(this.getIntent().getStringExtra("Id")));
-        img = (ImageView) findViewById(R.id.imageViewEdit1);
-		BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inSampleSize = 8;
-		Bitmap bm = BitmapFactory.decodeFile(p.getImg(), options);
-    	Matrix mtx = new Matrix();
-    	mtx.postRotate(90);
-    	bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), mtx, true);
-		img.setImageBitmap(bm);
+        if(!p.getImg().equals("null")){
+            img = (ImageView) findViewById(R.id.imageViewEdit1);
+    		BitmapFactory.Options options = new BitmapFactory.Options();
+    		options.inSampleSize = 8;
+    		Bitmap bm = BitmapFactory.decodeFile(p.getImg(), options);
+        	Matrix mtx = new Matrix();
+        	mtx.postRotate(90);
+        	bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), mtx, true);
+    		img.setImageBitmap(bm);
+        }
         Button b= (Button) findViewById(R.id.buttonEdit1);
         final EditText et1 = (EditText)findViewById(R.id.editTextEdit1);
         et1.setText(p.getNom());
         final EditText et2 = (EditText)findViewById(R.id.editTextEdit2);
         et2.setText(p.getPrenom());
-
         final EditText et3 = (EditText)findViewById(R.id.editTextEdit3);
         et3.setText(p.getGroupe());
-
         b.setOnClickListener(
         	new OnClickListener() {
         	    @Override
@@ -56,9 +56,7 @@ public class EditerProfil extends Activity {
         	    }
         	}
         );
-        
-
-        
+         
         Button editer = (Button) findViewById(R.id.buttonEdit2);
         editer.setOnClickListener(
             	new OnClickListener() {
@@ -104,7 +102,5 @@ public class EditerProfil extends Activity {
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
-
-
 }
 

@@ -60,23 +60,13 @@ public class ListerProfils extends Activity {
 			if (booleanParams.size() > 0 && booleanParams.get("photo")) {
 				photo = "yes";
 			}
-			// showTestDialog(stringParams.get("nom"));
-			// showTestDialog(stringParams.get("prenom"));
-			// showTestDialog(stringParams.get("groupe"));
-			// showTestDialog(stringParams.get("photo"));
-			//
 			c = pDao.selectionnerProfilsCorrespondant(stringParams.get("nom"),
 					stringParams.get("prenom"), stringParams.get("groupe"),
 					photo);
-			// showTestDialog(pDao.selectionnerProfilsCorrespondant(stringParams.get("nom"),
-			// stringParams.get("prenom"), stringParams.get("groupe"),
-			// photo));
-
-			// c = pDao.selectionnerTousLesProfils();
 		} else {
 			c = pDao.selectionnerTousLesProfils();
 		}
-
+		
 		c.moveToFirst();
 		if (!c.isAfterLast()) {
 			do {
@@ -84,8 +74,8 @@ public class ListerProfils extends Activity {
 				map.put("Id", c.getString(0));
 				map.put("Nom", c.getString(1));
 				map.put("Prenom", c.getString(2));
+				map.put("Groupe", c.getString(3));
 				map.put("Photo", c.getString(4));
-				// showTestDialog(c.getString(1));
 				listeElemProfils.add(map);
 			} while (c.moveToNext());
 			c.close();
@@ -93,13 +83,11 @@ public class ListerProfils extends Activity {
 
 		final SimpleAdapter listeProfilVersViewAdapteur = new SimpleAdapter(
 				this, listeElemProfils, R.layout.profil_element_liste,
-				new String[] { "Nom", "Prenom", "Photo" }, new int[] {
-						R.id.nom, R.id.prenom, R.id.img });
+				new String[] { "Nom", "Prenom", "Groupe", "Photo" }, new int[] {
+						R.id.nom, R.id.prenom, R.id.groupe, R.id.img});
 		listeProfilVersViewAdapteur.setViewBinder(new MyViewBinder());
 		try {
 			listeProfils.setAdapter(listeProfilVersViewAdapteur);
-			
-			
 			class OnItemEditSupprListener implements OnItemClickListener{
 
 				private ArrayList<HashMap<String, Object>> listeElemProfils ;
@@ -142,11 +130,13 @@ public class ListerProfils extends Activity {
 		    } }); 
 		alertDialog.setButton2("Supprimer", new DialogInterface.OnClickListener() {
 			  public void onClick(DialogInterface dialog, int which) {
-				  
+				  p = new Profil();
+				  p.setId(Integer.parseInt(id));
+				  pDao.supprimer(p);
 			    } }); 
 		alertDialog.setButton3("Annuler", new DialogInterface.OnClickListener() {
 			  public void onClick(DialogInterface dialog, int which) {
-				  
+
 			    } }); 
 		alertDialog.show();
 	}

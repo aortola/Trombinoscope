@@ -1,29 +1,32 @@
 package imerir.android.trombinoscope;
 
-import android.app.AlertDialog;
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.SimpleAdapter.ViewBinder;
 
 public class MyViewBinder implements ViewBinder {
+
 	@Override
 	public boolean setViewValue(View view, Object data,
 			String textRepresentation) {
 		if ((view instanceof ImageView) & (data instanceof String)) {
 			ImageView iv = (ImageView) view;
 			try {
-				BitmapFactory.Options options = new BitmapFactory.Options();
-				options.inSampleSize = 8;
-				Bitmap bm = BitmapFactory.decodeFile((String) data, options);
-		    	Matrix mtx = new Matrix();
-		    	mtx.postRotate(90);
-		    	bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(), bm.getHeight(), mtx, true);
-				iv.setImageBitmap(bm);
+				String s =(String)data;
+				if (s.equals("null")) {
+					iv.setImageResource(R.drawable.photo_profil_vide);
+				} else {
+					BitmapFactory.Options options = new BitmapFactory.Options();
+					options.inSampleSize = 8;
+					Bitmap bm = BitmapFactory.decodeFile((String) data, options);
+					Matrix mtx = new Matrix();
+					mtx.postRotate(90);
+					bm = Bitmap.createBitmap(bm, 0, 0, bm.getWidth(),bm.getHeight(), mtx, true);
+					iv.setImageBitmap(bm);
+				}
 				iv.setTag(data);
 			} catch (OutOfMemoryError oom) {
 				throw oom;
@@ -32,5 +35,4 @@ public class MyViewBinder implements ViewBinder {
 		}
 		return false;
 	}
-	
 }

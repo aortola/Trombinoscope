@@ -12,16 +12,17 @@
         android:layout_alignParentTop="true"
         android:contentDescription="Photo de profil"
         android:src="@drawable/photo_profil_vide" />
-
+
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/imageView1"
+        android:layout_above="@+id/suivant"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/imageView1"
-        android:text="@string/prendrephoto" />
+        android:text="@string/prendrephoto"
+        android:textSize="25dp" />
 
     <TextView
         android:id="@+id/textView1"
@@ -94,5 +95,15 @@
         android:layout_below="@+id/editText3"
         android:text="@string/ajouterprofil"
         android:textSize="30dp" />
+
+    <Button
+        android:id="@+id/suivant"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageView1"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/imageView1"
+        android:text="@string/suivant"
+        android:textSize="25dp" />
 
 </RelativeLayout>

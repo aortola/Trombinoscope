@@ -27,7 +27,7 @@ public class AjoutProfil extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.creation_profil_formulaire);
         p = new Profil();
-        p.setImg(null);
+        p.setImg("null");
         img = (ImageView) findViewById(R.id.imageView1);
         Button b= (Button) findViewById(R.id.button1);
         final EditText et1 = (EditText)findViewById(R.id.editText1);

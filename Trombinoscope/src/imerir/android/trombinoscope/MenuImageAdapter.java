@@ -10,8 +10,8 @@ public class MenuImageAdapter extends BaseAdapter {
     private Context mContext;
  
     public Integer[] mThumbIds = {
-    		R.drawable.ajout_bleu,R.drawable.liste_vert,
-    		R.drawable.recherche_rouge, R.drawable.groupes_carre_bleu
+    		R.drawable.bouton4,R.drawable.bouton5,
+    		R.drawable.bouton2, R.drawable.bouton3
     };
  
     public MenuImageAdapter(Context c){
