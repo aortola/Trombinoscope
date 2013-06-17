@@ -14,6 +14,6 @@
     <string name="ajouterprofil">Ajouter</string>
     <string name="ajouter">Ajouter</string>
     <string name="Editer">Editer</string>
-    <string name="suivant">Suivant ></string>
+    <string name="reset">Reset ></string>
 
 </resources>

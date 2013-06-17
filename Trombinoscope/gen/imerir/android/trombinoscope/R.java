@@ -41,7 +41,7 @@ public final class R {
         public static final int menu_settings=0x7f07001b;
         public static final int nom=0x7f070017;
         public static final int prenom=0x7f070018;
-        public static final int suivant=0x7f070003;
+        public static final int reset=0x7f070003;
         public static final int textView1=0x7f070004;
         public static final int textView2=0x7f070006;
         public static final int textView3=0x7f070008;
@@ -75,7 +75,7 @@ public final class R {
         public static final int prendrephoto=0x7f040004;
         public static final int prenom=0x7f040006;
         public static final int rechercher=0x7f040009;
-        public static final int suivant=0x7f04000e;
+        public static final int reset=0x7f04000e;
         public static final int title_activity_main=0x7f040003;
     }
     public static final class style {

@@ -15,12 +15,18 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class AjoutProfil extends Activity {
 	
 	private ProfilDAO pDao;
 	private Profil p;
 	private ImageView img;
+    private EditText et1;
+    private EditText et2;
+   	private EditText et3;
+	private Button b;
+	private Button rst;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -29,10 +35,11 @@ public class AjoutProfil extends Activity {
         p = new Profil();
         p.setImg("null");
         img = (ImageView) findViewById(R.id.imageView1);
-        Button b= (Button) findViewById(R.id.button1);
-        final EditText et1 = (EditText)findViewById(R.id.editText1);
-        final EditText et2 = (EditText)findViewById(R.id.editText2);
-        final EditText et3 = (EditText)findViewById(R.id.editText3);
+        b = (Button) findViewById(R.id.button1);
+        rst = (Button) findViewById(R.id.reset); 
+        et1 = (EditText)findViewById(R.id.editText1);
+        et2 = (EditText)findViewById(R.id.editText2);
+        et3 = (EditText)findViewById(R.id.editText3);
         b.setOnClickListener(
         	new OnClickListener() {
         	    @Override
@@ -41,6 +48,15 @@ public class AjoutProfil extends Activity {
         	        startActivityForResult(intent, 0);
         	    }
         	}
+        );
+        
+        rst.setOnClickListener(
+            	new OnClickListener() {
+            	    @Override
+            	    public void onClick(View v) {
+            	    	resetFields();
+            	    }
+            	}
         );
         
         pDao = new ProfilDAO(this);
@@ -55,6 +71,8 @@ public class AjoutProfil extends Activity {
 						p.setPrenom(et2.getText().toString());
 						p.setGroupe(et3.getText().toString());
 						pDao.ajouter(p);
+						Toast.makeText(getBaseContext(),"Profil enregistré !",Toast.LENGTH_SHORT).show();
+						resetFields();
 					}
             	}
         );     	
@@ -91,6 +109,14 @@ public class AjoutProfil extends Activity {
         cursor.moveToFirst();
         return cursor.getString(column_index);
     }
+	
+	private void resetFields(){
+		img.setImageResource(R.drawable.photo_profil_vide);
+		et1.setText("");
+		et2.setText("");
+		et3.setText("");
+		p.setImg("null");
+	}
 
 
 }
