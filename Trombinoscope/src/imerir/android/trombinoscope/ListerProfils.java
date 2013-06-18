@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 public class ListerProfils extends Activity {
 
@@ -133,6 +134,7 @@ public class ListerProfils extends Activity {
 				  p = new Profil();
 				  p.setId(Integer.parseInt(id));
 				  pDao.supprimer(p);
+				  Toast.makeText(getBaseContext(),"Profil supprimé, veulliez rafraîchir!",Toast.LENGTH_SHORT).show();
 			    } }); 
 		alertDialog.setButton3("Annuler", new DialogInterface.OnClickListener() {
 			  public void onClick(DialogInterface dialog, int which) {

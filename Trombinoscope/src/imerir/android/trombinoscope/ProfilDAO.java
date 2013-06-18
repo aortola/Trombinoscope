@@ -127,21 +127,21 @@ public class ProfilDAO extends DAOBase{
 			i++;
 		}
 		
-//		if(photo!=null && photo.compareTo("no")!=0){
-//	        if(i>0){
-//	        	i--;
-//	        	query=query+and;
-//	        }
-//			query=query+where+PROFIL_IMG+"!=NULL";
-//			i++;
-//		}else if(photo!=null && photo!="yes" ){
-//	        if(i>0){
-//	        	i--;
-//	        	query=query+and;
-//	        }
-//			query=query+where+PROFIL_IMG+"=NULL";
-//			i++;
-//		}
+		if(photo!=null && photo.compareTo("no")!=0){
+	        if(i>0){
+	        	i--;
+	        	query=query+and;
+	        }
+			query=query+where+PROFIL_IMG+"!='null'";
+			i++;
+		}else if(photo!=null && photo.compareTo("no")==0 ){
+	        if(i>0){
+	        	i--;
+	        	query=query+and;
+	        }
+			query=query+where+PROFIL_IMG+"='null'";
+			i++;
+		}
 	
 		String[] test = new String[params.size()];
 		for(int k=0;k<params.size();k++){

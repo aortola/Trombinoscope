@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 public class EditerProfil extends Activity {
 	
@@ -66,6 +67,7 @@ public class EditerProfil extends Activity {
 						p.setPrenom(et2.getText().toString());
 						p.setGroupe(et3.getText().toString());
 						pDao.modifier(p);
+						Toast.makeText(getBaseContext(),"Profil édité !",Toast.LENGTH_SHORT).show();
 					}
             	}
         );     	
